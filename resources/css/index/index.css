@@ -1,0 +1,38 @@
+.body {
+    background-color: #f8f8f8;
+}
+
+
+.icon {
+    padding: 10px;
+    font-size: xx-large;
+    color: #1E9FFF;
+}
+
+.main {
+    margin-top: 44px;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-left: 8%;
+    margin-right: auto;
+}
+
+.url-input {
+    display: inline-block;
+    width: calc(100% - 200px);
+    max-width: 596px;
+    margin-right: 16px;
+    font-size: 14px;
+    padding-left: 7px;
+    padding-right: 7px;
+    border: 1px solid #abadb3;
+    border-radius: 4px;
+}
+
+.video-info {
+    margin-top: 20px;
+}
+
+.info-title {
+    color: #777777;
+}

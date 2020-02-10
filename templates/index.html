@@ -1,0 +1,121 @@
+{{ define "templates/index.html" }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="./resources/layui/css/layui.css">
+        <link rel="stylesheet" href="./resources/css/index/index.css">
+        <script src="./resources/layui/layui.all.js"></script>
+        <script src="./resources/js/common/util.js"></script>
+        <script src="./resources/js/index/index.js"></script>
+        <style>
+            div {
+                display: block;
+            }
+        </style>
+    </head>
+    <title>
+        Youtube视频&字幕下载
+    </title>
+    <body class="layui-layout-body body" style="overflow-y:scroll">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo" style=" color: #FBFBFB;font-size: large; width: max-content;">
+                <i class="layui-icon layui-icon-app icon"></i>
+                Youtube视频&字幕下载
+            </div>
+        </div>
+        <div class="main">
+            <div style="max-width: 762px">
+                <h1>在线Youtube字幕视频下载</h1>
+                <div style="margin-top:10px;margin-bottom: 10px">
+
+                    <p style="    margin-block-start: 1em;   margin-block-end: 1em;    font-size: 14px;    line-height: 22px;margin-top:24px ;">
+                        下载youtube字幕和视频</p>
+                </div>
+                <div>
+                    <input id="target_url" type="text" name="target_url" autocomplete="off"
+                           placeholder="请将youtube链接粘贴至此处"
+                           class="layui-input url-input">
+                    <button id="fetch_btn" type="button" class="layui-btn layui-btn-normal layui-btn-radius"
+                            style="background-color:#d84a38 ">获取
+                    </button>
+                </div>
+                <div id="description">
+                    <br>
+                    <ol>
+                        <li>
+                            <p>将youtube视频链接粘贴至上方输入框以获取字幕和视频文件信息 </p>
+                        </li>
+                        <li>
+
+                        </li>
+                    </ol>
+                </div>
+                <div id="details" class="layui-anim-fadein" style="display:none">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                        <legend>详情</legend>
+                    </fieldset>
+                    <div id="videoInfo" class="video-info" style="">
+                        <div class="layui-card">
+                            <div class="layui-card-header"><span class="info-title">视频标题：</span><span
+                                        id="videoTitle">"How to Tell a Story in English"</span>
+                            </div>
+                            <div class="layui-card-body">
+                                {{/*                                <span class="info-title">描述：</span>*/}}
+                                {{/*                                <span id="videoDescription" style="white-space: pre-line;"></span>*/}}
+                                {{/*                                <br>*/}}
+                                <span class="info-title">作者：</span>
+                                <span id="videoUploader">"Learn English with Bob the Canadian"</span>
+                                <br>
+                                <span class="info-title">时长：</span>
+                                <span id="videoDuration">480000000000</span>
+                                <br>
+                            </div>
+                        </div>
+
+                        <div class="layui-tab" style="background-color: #FBFBFB">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">字幕信息</li>
+                                <li>视频信息</li>
+                            </ul>
+                            <div class="layui-tab-content">
+                                <div id="captions" class="layui-tab-item layui-show">
+                                    1. 高度默认自适应，也可以随意固宽。
+                                    <br>2. Tab进行了响应式处理，所以无需担心数量多少。
+                                </div>
+                                <div id="videoFiles" class="layui-tab-item">
+                                    <div id="fileList" class="data-list">
+                                        <div id="fileHeader" class="layui-row list-head">
+                                            <b>
+                                                <div class="layui-col-md2">格式</div>
+                                                <div class="layui-col-md2">解析度</div>
+                                                <div class="layui-col-md2">视频/音频编码</div>
+                                                <div class="layui-col-md2">大小</div>
+                                                <div class="layui-col-md2">链接</div>
+                                                <div class="layui-col-md2">代理下载</div>
+                                            </b>
+                                        </div>
+                                        <hr>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer" style="left:0">
+
+        </div>
+
+    </div>
+
+
+    </body>
+    </html>
+{{end}}
