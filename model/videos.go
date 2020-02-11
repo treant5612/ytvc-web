@@ -1,10 +1,14 @@
 package model
 
-import "time"
+import (
+	"google.golang.org/api/youtube/v3"
+	"time"
+)
 
 type Video struct {
-	Info  `json:"info"`
-	Files []*FileInfo `json:"files""`
+	Info     `json:"info"`
+	Files    []*FileInfo        `json:"files"`
+	Captions []*youtube.Caption `json:"captions"`
 }
 
 type Info struct {

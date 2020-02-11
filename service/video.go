@@ -24,6 +24,9 @@ func VideoInfo(videoUrl string) (video *model.Video, err error) {
 	return nil, errors.New("cannot match url link")
 }
 
+/*
+get video
+ */
 func youtubeVideoInfo(url *url.URL) (video *model.Video, err error) {
 	video = &model.Video{}
 	v, err := ytdl.GetVideoInfoFromURL(url)
