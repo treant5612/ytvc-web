@@ -13,11 +13,11 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 	y2b := router.Group("/y2b")
 	{
-		y2b.Static("/resources/", "./resources")
+		y2b.Static("/resources", "./resources")
 		y2b.GET("/", controller.Index)
 		y2b.GET("/index.html", controller.Index)
 		y2b.GET("/test/test/test", controller.Index)
-		y2b.GET("/video/", controller.Video)
+		y2b.GET("/video", controller.Video)
 		y2b.GET("/video/dl", controller.VideoDownload)
 	}
 
