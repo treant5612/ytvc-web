@@ -6,18 +6,19 @@ import (
 )
 
 type Video struct {
-	Info     `json:"info"`
+	Info     *VideoInfo          `json:"info"`
 	Files    []*FileInfo        `json:"files"`
 	Captions []*youtube.Caption `json:"captions"`
 }
 
-type Info struct {
+type VideoInfo struct {
 	ID            string        `json:"id"`            // ID
 	Title         string        `json:"title"`         //标题
 	Description   string        `json:"description"`   //描述
 	DatePublished time.Time     `json:"datePublished"` //发表日期
 	Uploader      string        `json:"uploader"`      //上传者
 	Duration      time.Duration `json:"duration"`      //时长
+	ThumbnailUrl  string
 }
 
 type FileInfo struct {
@@ -31,3 +32,5 @@ type FileInfo struct {
 	Url           string `json:"url"`  //视频下载地址
 	Size          int64  `json:"size"` //视频大小
 }
+
+

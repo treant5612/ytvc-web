@@ -2,6 +2,8 @@ package service
 
 import (
 	"errors"
+	"fmt"
+	"github.com/treant5612/ytvc-web/db/redisdb"
 	"log"
 	"net/http"
 )
@@ -10,10 +12,25 @@ var (
 	ErrDownloadFailed = errors.New("download failed")
 )
 
+func DownloadInfo(videoId string, no int) (fileName, url string, err error) {
+	video, err := redisdb.GetVideoDetail(videoId)
+	if err != nil {
+		return
+	}
+
+	for _, f := range video.Files {
+		if f.Number == no {
+			fileName = fmt.Sprintf("%s.%s", video.Info.Title, f.Extension)
+			return fileName, f.Url, nil
+		}
+	}
+	return "", "", errors.New("wrong file number")
+}
+
 type ReqOptions func(r *http.Request)
 
 func Download(url string, options ...ReqOptions) (resp *http.Response, err error) {
-	req, err := http.NewRequest("Get", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}

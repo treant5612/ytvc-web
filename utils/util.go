@@ -2,8 +2,12 @@ package utils
 
 import (
 	"fmt"
+	"golang.org/x/text/language"
+	"golang.org/x/text/language/display"
+	"net/url"
 	"reflect"
 	"regexp"
+	"strings"
 )
 
 func Copy(dst interface{}, src interface{}) (err error) {
@@ -30,8 +34,34 @@ func Domain(url string) (domain string) {
 	regStr := `([a-z0-9][-a-z0-9]{0,62})\.([a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$`
 	reg := regexp.MustCompile(regStr)
 	matches := reg.FindStringSubmatch(url)
-	if len(matches)<1{
+	if len(matches) < 1 {
 		return ""
 	}
 	return matches[1]
+}
+
+// GetVideoInfoFromShortURL fetches video info from a short youtube url
+func ExtractVideoID(u *url.URL) string {
+	switch u.Host {
+	case "www.youtube.com", "youtube.com", "m.youtube.com":
+		if u.Path == "/watch" {
+			return u.Query().Get("v")
+		}
+		if strings.HasPrefix(u.Path, "/embed/") {
+			return u.Path[7:]
+		}
+	case "youtu.be":
+		if len(u.Path) > 1 {
+			return u.Path[1:]
+		}
+	}
+	return ""
+}
+
+func LanguageDisplay(lang string) string {
+	tag, err := language.Parse(lang)
+	if err != nil {
+		return lang
+	}
+	return display.Chinese.Tags().Name(tag)
 }

@@ -1,4 +1,7 @@
-package youtube
+/*
+	most code of this file is from google youtube api samples
+*/
+package youtubeapi
 
 import (
 	"context"

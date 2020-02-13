@@ -2,7 +2,9 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"github.com/rylio/ytdl"
+	"github.com/treant5612/ytvc-web/db/redisdb"
 	"github.com/treant5612/ytvc-web/model"
 	"github.com/treant5612/ytvc-web/utils"
 	"log"
@@ -11,29 +13,61 @@ import (
 	"sync"
 )
 
-func VideoInfo(videoUrl string) (video *model.Video, err error) {
-	vUrl, err := url.Parse(videoUrl)
+func Video(videoUrl string) (video *model.Video, err error) {
+	u, err := url.Parse(videoUrl)
 	if err != nil {
-		return nil, errors.New("parse url failed")
+		return
 	}
-	domain := utils.Domain(vUrl.Host)
-	switch domain {
-	case "youtu", "youtube":
-		return youtubeVideoInfo(vUrl)
+	videoId := utils.ExtractVideoID(u)
+	if v, err := redisdb.GetVideoDetail(videoId); err == nil {
+		return v, nil
 	}
-	return nil, errors.New("cannot match url link")
+	if videoId == "" {
+		return nil, errors.New("get video id failed")
+	}
+	video = &model.Video{}
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+	var errVideo, errCaption error
+	go func() {
+		video.Info, video.Files, errVideo = VideoInfo(videoId, "youtube")
+		wg.Done()
+	}()
+	go func() {
+		video.Captions, errCaption = Captions(videoId)
+		wg.Done()
+	}()
+	wg.Wait()
+	if errCaption != nil || errVideo != nil {
+		log.Printf("video err:%v,caption err:%v", errVideo, errCaption)
+		err = fmt.Errorf("get video info failed")
+		return
+	}
+	redisdb.SetVideoDetail(video)
+	return video, nil
+}
+
+func VideoInfo(video string, kind string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
+	switch kind {
+	case "youtube":
+		return youtubeVideoInfo(video)
+	}
+	return nil, nil, errors.New("cannot match url link")
 }
 
 /*
 get video
- */
-func youtubeVideoInfo(url *url.URL) (video *model.Video, err error) {
-	video = &model.Video{}
-	v, err := ytdl.GetVideoInfoFromURL(url)
+*/
+func youtubeVideoInfo(id string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
+	videoInfo = new(model.VideoInfo)
+
+	v, err := ytdl.GetVideoInfoFromID(id)
 	//基础信息
-	if err = utils.Copy(&video.Info, v); err != nil {
-		return nil, err
+	if err = utils.Copy(videoInfo, v); err != nil {
+		return nil, nil, err
 	}
+	//缩略图
+	videoInfo.ThumbnailUrl = v.GetThumbnailURL(ytdl.ThumbnailQualityDefault).String()
 	//视频文件信息
 	wg := &sync.WaitGroup{}
 	client := http.DefaultClient
@@ -44,7 +78,7 @@ func youtubeVideoInfo(url *url.URL) (video *model.Video, err error) {
 			log.Printf("copy format to fileInfo failed:%v", err)
 			continue
 		}
-		video.Files = append(video.Files, f)
+		videoFiles = append(videoFiles, f)
 		url, err := v.GetDownloadURL(format)
 		wg.Add(1)
 		//获取视频文件url
@@ -67,6 +101,6 @@ func youtubeVideoInfo(url *url.URL) (video *model.Video, err error) {
 		}()
 	}
 	wg.Wait()
-	return video, nil
+	return videoInfo, videoFiles, nil
 
 }

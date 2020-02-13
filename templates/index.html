@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="stylesheet" href="./resources/layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css"/>
         <link rel="stylesheet" href="./resources/css/index/index.css">
-        <script src="./resources/layui/layui.all.js"></script>
+        <script src="https://www.layuicdn.com/layui-v2.5.6/layui.all.js"></script>
         <script src="./resources/js/common/util.js"></script>
         <script src="./resources/js/index/index.js"></script>
         <style>
@@ -58,53 +58,73 @@
                         <legend>详情</legend>
                     </fieldset>
                     <div id="videoInfo" class="video-info" style="">
-                        <div class="layui-card">
-                            <div class="layui-card-header"><span class="info-title">视频标题：</span><span
-                                        id="videoTitle">"How to Tell a Story in English"</span>
-                            </div>
-                            <div class="layui-card-body">
-                                {{/*                                <span class="info-title">描述：</span>*/}}
-                                {{/*                                <span id="videoDescription" style="white-space: pre-line;"></span>*/}}
-                                {{/*                                <br>*/}}
-                                <span class="info-title">作者：</span>
-                                <span id="videoUploader">"Learn English with Bob the Canadian"</span>
-                                <br>
-                                <span class="info-title">时长：</span>
-                                <span id="videoDuration">480000000000</span>
-                                <br>
+
+                        <div class="layui-col-md9">
+                            <div class="layui-card">
+                                <div class="layui-card-header"><span class="info-title">视频标题：</span><span
+                                            id="videoTitle">"How to Tell a Story in English"</span>
+                                </div>
+                                <div class="layui-card-body">
+                                    {{/*                                <span class="info-title">描述：</span>*/}}
+                                    {{/*                                <span id="videoDescription" style="white-space: pre-line;"></span>*/}}
+                                    {{/*                                <br>*/}}
+                                    <span class="info-title">作者：</span>
+                                    <span id="videoUploader">"Learn English with Bob the Canadian"</span>
+                                    <br>
+                                    <span class="info-title">时长：</span>
+                                    <span id="videoDuration">480000000000</span>
+                                    <br>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="layui-tab" style="background-color: #FBFBFB">
-                            <ul class="layui-tab-title">
-                                <li class="layui-this">字幕信息</li>
-                                <li>视频信息</li>
-                            </ul>
-                            <div class="layui-tab-content">
-                                <div id="captions" class="layui-tab-item layui-show">
-                                    1. 高度默认自适应，也可以随意固宽。
-                                    <br>2. Tab进行了响应式处理，所以无需担心数量多少。
-                                </div>
-                                <div id="videoFiles" class="layui-tab-item">
-                                    <div id="fileList" class="data-list">
-                                        <div id="fileHeader" class="layui-row list-head">
-                                            <b>
-                                                <div class="layui-col-md2">格式</div>
-                                                <div class="layui-col-md2">解析度</div>
-                                                <div class="layui-col-md2">视频/音频编码</div>
-                                                <div class="layui-col-md2">大小</div>
-                                                <div class="layui-col-md2">链接</div>
-                                                <div class="layui-col-md2">代理下载</div>
-                                            </b>
+                        <div class="layui-col-md1"></div>
+                        <div class="layui-col-md2">
+                            <img id="videoThumbnail" height="110" style="padding-left: 20px"
+                                 src="https://img.youtube.com/vi/fOHpIDVVYxo/default.jpg">
+                        </div>
+                        <div class="layui-col-md12">
+                            <div class="layui-tab" style="background-color: #FBFBFB">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">字幕信息</li>
+                                    <li>视频信息</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div id="captions" class="layui-tab-item layui-show">
+                                        <div id="captionList">
+                                            <div id="captionHeader" class="layui-row list-head">
+                                                <b>
+                                                    <div class="layui-col-md2">语言</div>
+                                                    <div class="layui-col-md1">类型</div>
+                                                    <div class="layui-col-md2">更新日期</div>
+                                                    <div class="layui-col-md2">机器翻译</div>
+                                                    <div class="layui-col-md1">格式</div>
+                                                    <div class="layui-col-md2">格式</div>
+                                                    <div class="layui-col-md2">下载</div>
+                                                </b>
+                                            </div>
+                                            <hr>
                                         </div>
-                                        <hr>
                                     </div>
+                                    <div id="videoFiles" class="layui-tab-item">
+                                        <div id="fileList" class="data-list">
+                                            <div id="fileHeader" class="layui-row list-head">
+                                                <b>
+                                                    <div class="layui-col-md2">格式</div>
+                                                    <div class="layui-col-md2">解析度</div>
+                                                    <div class="layui-col-md2">视频/音频编码</div>
+                                                    <div class="layui-col-md2">大小</div>
+                                                    <div class="layui-col-md2">链接</div>
+                                                    <div class="layui-col-md2">代理下载</div>
+                                                </b>
+                                            </div>
+                                            <hr>
+                                        </div>
 
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -114,8 +134,6 @@
         </div>
 
     </div>
-
-
     </body>
     </html>
 {{end}}

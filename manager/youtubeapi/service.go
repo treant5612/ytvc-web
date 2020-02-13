@@ -1,4 +1,4 @@
-package youtube
+package youtubeapi
 
 import (
 	"context"
@@ -8,9 +8,8 @@ import (
 
 var ServiceFSC *youtube.Service
 
-func InitServiceFSC() (err error) {
-
-	client := getClient(youtube.YoutubeForceSslScope, "client_secret.json", "ForceSslScopeToken.json")
+func InitServiceFSC(clientSecretFile, tokenFile string) (err error) {
+	client := getClient(youtube.YoutubeForceSslScope, clientSecretFile, tokenFile)
 	ServiceFSC, err = youtube.NewService(context.TODO(), option.WithHTTPClient(client))
 	return err
 }
