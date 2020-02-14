@@ -5,7 +5,6 @@ import (
 	"github.com/go-redis/redis"
 	"github.com/treant5612/ytvc-web/controller"
 	"github.com/treant5612/ytvc-web/db/redisdb"
-	"github.com/treant5612/ytvc-web/manager/youtubeapi"
 	"github.com/treant5612/ytvc-web/middleware"
 	"github.com/treant5612/ytvc-web/service"
 	"log"
@@ -33,7 +32,7 @@ func main() {
 
 func prepare() {
 	log.SetFlags(log.Lshortfile | log.Ltime)
-	youtubeapi.InitServiceFSC("client_secret.json", "youtubeForceSslToken.json")
+	//youtubeapi.InitServiceFSC("client_secret.json", "youtubeForceSslToken.json")
 	redisdb.Init(&redis.Options{Addr: ":6379"})
 	service.SetDownloadPath("/dev/shm")
 
