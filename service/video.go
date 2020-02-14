@@ -47,10 +47,10 @@ func Video(videoUrl string) (video *model.Video, err error) {
 	return video, nil
 }
 
-func VideoInfo(video string, kind string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
+func VideoInfo(videoId string, kind string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
 	switch kind {
 	case "youtube":
-		return youtubeVideoInfo(video)
+		return youtubeVideoInfo(videoId)
 	}
 	return nil, nil, errors.New("cannot match url link")
 }

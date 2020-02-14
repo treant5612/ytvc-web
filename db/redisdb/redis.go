@@ -12,7 +12,7 @@ import (
 var rdb *redis.Client
 
 var (
-	expire = time.Hour * 24
+	expire = time.Hour
 )
 
 func SetVideoDetail(video *model.Video) {

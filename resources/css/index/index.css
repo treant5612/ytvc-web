@@ -36,3 +36,12 @@
 .info-title {
     color: #777777;
 }
+
+select {
+    height:24px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 62%;
+}

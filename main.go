@@ -33,5 +33,5 @@ func prepare() {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 	youtubeapi.InitServiceFSC("client_secret.json", "youtubeForceSslToken.json")
 	redisdb.Init(&redis.Options{Addr: ":6379"})
-	service.SetDownloadPath("./download")
+	service.SetDownloadPath("/dev/shm")
 }

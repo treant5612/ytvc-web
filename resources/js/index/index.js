@@ -35,13 +35,13 @@ function showDetails() {
 }
 
 function fillVideoInfo(info) {
-    $("#videoTitle").html(cutString(info.title));
+    $("#videoTitle").text(cutString(info.title));
     // $("#videoDescription").html(info.description);
-    $("#videoUploader").html(info.uploader);
+    $("#videoUploader").text(info.uploader);
     $("#videoThumbnail").attr("src", info.ThumbnailUrl)
 
 
-    $("#videoDuration").html(simpleDuration(info.duration / 10e5));
+    $("#videoDuration").text(simpleDuration(info.duration / 10e5));
 }
 
 function listFiles(files, vid) {
@@ -60,13 +60,14 @@ function createFileRow(f, vid) {
     let resolution = f.resolution != "" ? f.resolution : "-"
     let encoding = v + "&nbsp;/&nbsp;" + a
     let size = prettySize(f.size)
+    let title = $("#videoTitle").text()
     let temp = `<div class="layui-row file-row">
         <div class="layui-col-md2">${f.extension}</div>
         <div class="layui-col-md2">${resolution}</div>
         <div class="layui-col-md2">${encoding}</div>
         <div class="layui-col-md2">${size}</div>
         <div class="layui-col-md2"><a href="${f.url}" target="_blank" style="color:deepskyblue">链接</a></div>
-        <div class="layui-col-md2"><a href="./video/${vid}?no=${f.number}" target="_blank">下载</a></div>
+        <div class="layui-col-md2"><a href="./video/${vid}?no=${f.number}" download="${title}.${f.extension}" >下载</a></div>
      </div>
      <hr class="file-row">
 `
@@ -78,40 +79,68 @@ function listCaptions(captions) {
     if (captions.length == 0) {
         $("#captionList").append(`<div class="layui-row caption-row"><b>暂无该视频相关字幕信息</b></div>`)
     }
-    captions.forEach(function (c) {
-        $("#captionList").append(createCaptionRow(c))
+    captions.forEach(function (c, i, arr) {
+        $("#captionList").append(createCaptionRow(c, i, arr))
     })
 }
 
-function createCaptionRow(c) {
+function createCaptionRow(c, i, arr) {
     let lang = c.snippet.language
     let trackKind = cTrackKind(c.snippet.trackKind)
 
     let lastUpdated = new Date(c.snippet.lastUpdated).format("yyyy-MM-dd")
     let captionId = c.id
-
-
+    let secondaryOptions = createSecondaryOptions(c, i, arr)
     let temp = `<div class="layui-row caption-row">
+        <input id="caption_${i}" type="hidden" value="${captionId}">
         <div class="layui-col-md2">${lang}</div>
-        <div class="layui-col-md1">${trackKind}</div>
+        <div class="layui-col-md2">${trackKind}</div>
         <div class="layui-col-md2">${lastUpdated}</div>
-        <div class="layui-col-md2">aaa</div>
-        <div class="layui-col-md1"><a href="#" style="color:deepskyblue">链接</a></div>
-        <div class="layui-col-md2">     
-            <select name="quiz3">
-                <option value="srt">srt</option>
-                <option value="sbv">sbv</option>
-                <option value="scc">scc</option>
-                <option value="ttml">ttml</option>
-                <option value="vtt">vtt</option>
-            </select>
+        <div class="layui-col-md2">
+            <select id="cap_select_${i}">${secondaryOptions}</select>
         </div>
-        <div class="layui-col-md2"><a href="./caption/${captionId}">下载</a></div>
+        <div class="layui-col-md2">    
+            <input id="trans_${i}" type="checkbox" >机翻中文
+        </div>
+        <div class="layui-col-md2">
+            <a href="javascript:downloadCaption('${i}')">下载</a>
+        </div>
      </div>
      <hr class="caption-row">
 `
     return temp
 }
+
+function createSecondaryOptions(c, i, arr) {
+    let tmp = `<option value="">无</option>
+                <option value="${c.id}">机翻(中文)</option>`
+    for (j = 0; j < arr.length; j++) {
+        if (j == i) {
+            continue
+        }
+        tmp += `<option value="${arr[j].id}">${arr[j].snippet.language}</option>`
+    }
+    return tmp
+}
+
+
+function downloadCaption(i) {
+    let captionId = $(`#caption_${i}`).val()
+    let title = encodeURIComponent($("#videoTitle").text())
+    let url = `./caption/${captionId}?fname=${title}`
+    if ($(`#trans_${i}`).is(":checked")) {
+        url += "&tlang=zh"
+    }
+    let secondary = $(`#cap_select_${i}`).val()
+    if (secondary != "") {
+        url += `&secondary=${secondary}`
+        if (secondary == captionId) {
+            url += "&secondary_tlang=zh"
+        }
+    }
+    fDownload(url)
+}
+
 
 function cTrackKind(k) {
     switch (k) {
