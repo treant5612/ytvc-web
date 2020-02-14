@@ -11,6 +11,8 @@ func Logger() gin.HandlerFunc {
 		url := context.Request.URL
 		method := context.Request.Method
 		context.Next()
-		log.Println(host, url, method)
+		status := context.Writer.Status()
+		size := context.Writer.Size()
+		log.Println(host, url, method, status, size)
 	}
 }

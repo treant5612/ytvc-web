@@ -38,4 +38,5 @@ func GetVideoDetail(id string) (video *model.Video, err error) {
 
 func Init(options *redis.Options) {
 	rdb = redis.NewClient(options)
+	rdb.Options()
 }

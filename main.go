@@ -6,6 +6,7 @@ import (
 	"github.com/treant5612/ytvc-web/controller"
 	"github.com/treant5612/ytvc-web/db/redisdb"
 	"github.com/treant5612/ytvc-web/manager/youtubeapi"
+	"github.com/treant5612/ytvc-web/middleware"
 	"github.com/treant5612/ytvc-web/service"
 	"log"
 )
@@ -14,11 +15,12 @@ func main() {
 	prepare()
 
 	router := gin.Default()
+	router.Use(middleware.Logger())
 	router.LoadHTMLGlob("templates/*")
-	y2b := router.Group("/y2b")
+	y2b := router
 	{
 		y2b.Static("/resources", "./resources")
-		y2b.Static("/page","./static")
+		y2b.Static("/page", "./static")
 		y2b.GET("/", controller.Index)
 		y2b.GET("/index.html", controller.Index)
 		y2b.GET("/test/test/test", controller.Index)
