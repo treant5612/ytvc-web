@@ -1,7 +1,7 @@
 const $ = layui.$
 $(function () {
     $("#fetch_btn").on("click", function () {
-        let loading = layer.load(2, {shade: 0.3})
+        window.loadingFrame = layer.load(2, {shade: 0.3})
         $.ajax({
             url: "./video",
             type: "GET",
@@ -9,7 +9,6 @@ $(function () {
                 "url": $("#target_url").val()
             },
             complete: function () {
-                layer.close(loading)
             },
             success: fetchSucc,
             error: fetchErr,
@@ -19,6 +18,8 @@ $(function () {
 });
 
 function fetchSucc(result, status, xhr) {
+    layer.close(window.loadingFrame)
+
     fillVideoInfo(result.data.info)
     listCaptions(result.data.captions)
     listFiles(result.data.files, result.data.info.id)
@@ -27,6 +28,8 @@ function fetchSucc(result, status, xhr) {
 }
 
 function fetchErr(xhr, status, error) {
+    layer.close(window.loadingFrame)
+
     layer.msg("视频信息获取失败", {icon: 2})
 }
 
@@ -45,8 +48,9 @@ function fillVideoInfo(info) {
 
 function listFiles(files, vid) {
     $("#fileList .file-row").remove()
-    if (files.length == 0) {
+    if (files == null || files.length == 0) {
         $("#fileList").append(`<div class="layui-row file-row"><b>暂无该视频相关文件信息</b></div>`)
+        return
     }
     files.forEach(function (f) {
         $("#fileList").append(createFileRow(f, vid))
@@ -75,8 +79,10 @@ function createFileRow(f, vid) {
 
 function listCaptions(captions) {
     $("#captionList .caption-row").remove()
-    if (captions.length == 0) {
+
+    if (captions == null || captions.CaptionTrack.length == 0) {
         $("#captionList").append(`<div class="layui-row caption-row"><b>暂无该视频相关字幕信息</b></div>`)
+        return
     }
     captions.CaptionTrack.forEach(function (c, i, arr) {
         $("#captionList").append(createCaptionRow(c, i, arr))

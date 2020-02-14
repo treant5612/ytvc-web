@@ -18,6 +18,7 @@ func main() {
 	y2b := router.Group("/y2b")
 	{
 		y2b.Static("/resources", "./resources")
+		y2b.Static("/page","./static")
 		y2b.GET("/", controller.Index)
 		y2b.GET("/index.html", controller.Index)
 		y2b.GET("/test/test/test", controller.Index)

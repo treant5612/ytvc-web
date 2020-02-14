@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="./resources/css/index/index.css">
         <script src="https://www.layuicdn.com/layui-v2.5.6/layui.all.js"></script>
         <script src="./resources/js/common/util.js"></script>
-        <script src="./resources/js/index/index.js"></script>
+        <script src="./resources/js/index/index.js?v=7"></script>
         <style>
             div {
                 display: block;
@@ -46,10 +46,13 @@
                     <br>
                     <ol>
                         <li>
-                            <p>将youtube视频链接粘贴至上方输入框以获取字幕和视频文件信息 </p>
+                            <p>将youtube视频链接粘贴至上方输入框以获取字幕和视频文件信息。</p><br>
                         </li>
                         <li>
-
+                            <p>指定次要字幕以下载双语字幕。</p><br>
+                        </li>
+                        <li>
+                            <p>视频文件列表中，如无音视频编码则说明该文件为纯视频/纯音频。</p><br>
                         </li>
                     </ol>
                 </div>
@@ -128,7 +131,14 @@
                 </div>
             </div>
         </div>
-        {{/*        <div class="layui-footer" style="left:0;"></div>*/}}
+        <div class="layui-footer" style="left:0;height: 28px">
+            <div style="text-align:center">
+                <a href="./page/updatelog.html">更新日志</a>|
+                <a href="#">留言</a>|
+                <a href="https://github.com/treant5612/ytvc-web">本站源码</a>
+            </div>
+
+        </div>
     </div>
     </body>
     </html>
