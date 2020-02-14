@@ -25,7 +25,6 @@ func main() {
 		y2b.GET("/video/:id", controller.VideoDownload)
 		y2b.GET("/caption/:id", controller.CaptionDownload)
 	}
-
 	router.Run("localhost:8080")
 }
 
@@ -34,4 +33,5 @@ func prepare() {
 	youtubeapi.InitServiceFSC("client_secret.json", "youtubeForceSslToken.json")
 	redisdb.Init(&redis.Options{Addr: ":6379"})
 	service.SetDownloadPath("/dev/shm")
+
 }

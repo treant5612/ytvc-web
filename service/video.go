@@ -9,37 +9,19 @@ import (
 	"github.com/treant5612/ytvc-web/utils"
 	"log"
 	"net/http"
-	"net/url"
 	"sync"
 )
 
-func Video(videoUrl string) (video *model.Video, err error) {
-	u, err := url.Parse(videoUrl)
-	if err != nil {
-		return
-	}
-	videoId := utils.ExtractVideoID(u)
+func Video(videoId string) (video *model.Video, err error) {
 	if v, err := redisdb.GetVideoDetail(videoId); err == nil {
 		return v, nil
 	}
 	if videoId == "" {
 		return nil, errors.New("get video id failed")
 	}
-	video = &model.Video{}
-	wg := sync.WaitGroup{}
-	wg.Add(2)
-	var errVideo, errCaption error
-	go func() {
-		video.Info, video.Files, errVideo = VideoInfo(videoId, "youtube")
-		wg.Done()
-	}()
-	go func() {
-		video.Captions, errCaption = Captions(videoId)
-		wg.Done()
-	}()
-	wg.Wait()
-	if errCaption != nil || errVideo != nil {
-		log.Printf("video err:%v,caption err:%v", errVideo, errCaption)
+	video, err = VideoInfo(videoId, "youtube")
+	if err != nil {
+		log.Printf("video err:%v", err)
 		err = fmt.Errorf("get video info failed")
 		return
 	}
@@ -47,24 +29,31 @@ func Video(videoUrl string) (video *model.Video, err error) {
 	return video, nil
 }
 
-func VideoInfo(videoId string, kind string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
+func VideoInfo(videoId string, kind string) (video *model.Video, err error) {
 	switch kind {
 	case "youtube":
 		return youtubeVideoInfo(videoId)
 	}
-	return nil, nil, errors.New("cannot match url link")
+	return nil, errors.New("cannot match url link")
 }
 
 /*
 get video
 */
-func youtubeVideoInfo(id string) (videoInfo *model.VideoInfo, videoFiles []*model.FileInfo, err error) {
-	videoInfo = new(model.VideoInfo)
+func youtubeVideoInfo(id string) (video *model.Video, err error) {
+	video = new(model.Video)
+	videoInfo := new(model.VideoInfo)
+	var videoFiles []*model.FileInfo
 
 	v, err := ytdl.GetVideoInfoFromID(id)
+	if err != nil {
+		return nil, err
+	}
+	video.Captions = v.Captions
+
 	//基础信息
 	if err = utils.Copy(videoInfo, v); err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 	//缩略图
 	videoInfo.ThumbnailUrl = v.GetThumbnailURL(ytdl.ThumbnailQualityDefault).String()
@@ -101,6 +90,8 @@ func youtubeVideoInfo(id string) (videoInfo *model.VideoInfo, videoFiles []*mode
 		}()
 	}
 	wg.Wait()
-	return videoInfo, videoFiles, nil
+	video.Info = videoInfo
+	video.Files = videoFiles
+	return video, nil
 
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/asticode/go-astisub"
 	"github.com/treant5612/ytvc-web/manager/youtubeapi"
 	"google.golang.org/api/youtube/v3"
+	"os"
 	"path"
 )
 
@@ -20,34 +21,31 @@ func Captions(videoId string) (captions []*youtube.Caption, err error) {
 /*
 	Download caption and return it's path in local filesystem.
 */
-func DownloadCaption(captionId string, tlang string) (path string, err error) {
-	call := youtubeapi.ServiceFSC.Captions.Download(captionId)
-	if tlang != "" {
-		call = call.Tlang(tlang)
-	}
-	resp, err := call.Tfmt("srt").Download()
+func DownloadCaption(videoId string, captionId string, tlang string) (fpath string, err error) {
+	v, err := Video(videoId)
 	if err != nil {
 		return "", err
 	}
-	defer resp.Body.Close()
-	return DownloadToLocalFile(resp.Body, captionId+tlang+".srt")
+	fpath = path.Join(downloadPath, fmt.Sprintf("%s.%s_%s.srt", videoId, captionId, tlang))
+	err = v.Captions.DownloadToFile(captionId, tlang, fpath)
+	return fpath, err
 }
 
 /*
 	download two captions and merge them.
 	return the filepath in local fs.
 */
-func DownloadAndMergeCaption(mainId, mainTlang, secondaryId, secondaryTlang string) (path string, err error) {
+func DownloadAndMergeCaption(videoId, mainId, mainTlang, secondaryId, secondaryTlang string) (path string, err error) {
 	ch := make(chan error)
 	var mainPath, secondaryPath string
 	go func() {
 		var err1 error
-		mainPath, err1 = DownloadCaption(mainId, mainTlang)
+		mainPath, err1 = DownloadCaption(videoId, mainId, mainTlang)
 		ch <- err1
 	}()
 	go func() {
 		var err2 error
-		secondaryPath, err2 = DownloadCaption(secondaryId, secondaryTlang)
+		secondaryPath, err2 = DownloadCaption(videoId, secondaryId, secondaryTlang)
 		ch <- err2
 	}()
 
@@ -65,10 +63,12 @@ func merge(mainPath, secondaryPath string) (filepath string, err error) {
 	if err != nil {
 		return
 	}
+	defer 	os.Remove(mainPath)
 	s2, err := astisub.OpenFile(secondaryPath)
 	if err != nil {
 		return
 	}
+	defer os.Remove(secondaryPath)
 	s1.Merge(s2)
 	//Write 方法需要标注格式
 	fileName := fmt.Sprintf("%s_%s.srt", path.Base(mainPath), path.Base(secondaryPath))

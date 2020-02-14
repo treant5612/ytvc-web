@@ -12,11 +12,10 @@ import (
 var rdb *redis.Client
 
 var (
-	expire = time.Hour
+	expire = time.Hour / 2
 )
 
 func SetVideoDetail(video *model.Video) {
-
 	bytes, err := json.Marshal(video)
 	if err != nil {
 		log.Printf("redis set video detail failed:%v", err)

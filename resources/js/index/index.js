@@ -35,13 +35,12 @@ function showDetails() {
 }
 
 function fillVideoInfo(info) {
-    $("#videoTitle").text(cutString(info.title));
+    $("#videoTitle").text(cutString(info.title))
+    $("#videoId").text(info.id)
     // $("#videoDescription").html(info.description);
-    $("#videoUploader").text(info.uploader);
+    $("#videoUploader").text(info.uploader)
     $("#videoThumbnail").attr("src", info.ThumbnailUrl)
-
-
-    $("#videoDuration").text(simpleDuration(info.duration / 10e5));
+    $("#videoDuration").text(simpleDuration(info.duration / 10e5))
 }
 
 function listFiles(files, vid) {
@@ -79,24 +78,23 @@ function listCaptions(captions) {
     if (captions.length == 0) {
         $("#captionList").append(`<div class="layui-row caption-row"><b>暂无该视频相关字幕信息</b></div>`)
     }
-    captions.forEach(function (c, i, arr) {
+    captions.CaptionTrack.forEach(function (c, i, arr) {
         $("#captionList").append(createCaptionRow(c, i, arr))
     })
 }
 
-function createCaptionRow(c, i, arr) {
-    let lang = c.snippet.language
-    let trackKind = cTrackKind(c.snippet.trackKind)
+function createCaptionRow(track, i, arr) {
+    let lang = track.Name
+    let trackKind = cTrackKind(track.kind)
 
-    let lastUpdated = new Date(c.snippet.lastUpdated).format("yyyy-MM-dd")
-    let captionId = c.id
-    let secondaryOptions = createSecondaryOptions(c, i, arr)
+    let lastUpdated = "" //= new Date(c.snippet.lastUpdated).format("yyyy-MM-dd")
+    let captionId = track.vssId
+    let secondaryOptions = createSecondaryOptions(track, i, arr)
     let temp = `<div class="layui-row caption-row">
         <input id="caption_${i}" type="hidden" value="${captionId}">
-        <div class="layui-col-md2">${lang}</div>
+        <div class="layui-col-md3">${lang}</div>
         <div class="layui-col-md2">${trackKind}</div>
-        <div class="layui-col-md2">${lastUpdated}</div>
-        <div class="layui-col-md2">
+        <div class="layui-col-md3">
             <select id="cap_select_${i}">${secondaryOptions}</select>
         </div>
         <div class="layui-col-md2">    
@@ -111,23 +109,24 @@ function createCaptionRow(c, i, arr) {
     return temp
 }
 
-function createSecondaryOptions(c, i, arr) {
+function createSecondaryOptions(track, i, arr) {
     let tmp = `<option value="">无</option>
-                <option value="${c.id}">机翻(中文)</option>`
+                <option value="${track.vssId}">机翻(中文)</option>`
     for (j = 0; j < arr.length; j++) {
         if (j == i) {
             continue
         }
-        tmp += `<option value="${arr[j].id}">${arr[j].snippet.language}</option>`
+        tmp += `<option value="${arr[j].vssId}">${arr[j].Name}</option>`
     }
     return tmp
 }
 
 
 function downloadCaption(i) {
+    let videoId = $("#videoId").text()
     let captionId = $(`#caption_${i}`).val()
     let title = encodeURIComponent($("#videoTitle").text())
-    let url = `./caption/${captionId}?fname=${title}`
+    let url = `./caption/${videoId}?fname=${title}&vssid=${captionId}`
     if ($(`#trans_${i}`).is(":checked")) {
         url += "&tlang=zh"
     }
@@ -144,12 +143,13 @@ function downloadCaption(i) {
 
 function cTrackKind(k) {
     switch (k) {
+        case "asr":
+            return "自动生成"
         case "ASR":
             return "自动生成"
-        case "standard":
+        default:
             return "标准"
     }
-    return k
 }
 
 function cutString(s) {

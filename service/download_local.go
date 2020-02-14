@@ -7,7 +7,6 @@ import (
 )
 
 var downloadPath = "./download"
-
 func SetDownloadPath(path string) {
 	downloadPath = path
 	os.Mkdir(downloadPath, 0700)

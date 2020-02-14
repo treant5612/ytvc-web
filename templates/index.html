@@ -62,17 +62,18 @@
                         <div class="layui-col-md9">
                             <div class="layui-card">
                                 <div class="layui-card-header"><span class="info-title">视频标题：</span><span
-                                            id="videoTitle">"How to Tell a Story in English"</span>
+                                            id="videoTitle">"hey"</span>
                                 </div>
                                 <div class="layui-card-body">
                                     {{/*                                <span class="info-title">描述：</span>*/}}
                                     {{/*                                <span id="videoDescription" style="white-space: pre-line;"></span>*/}}
                                     {{/*                                <br>*/}}
+                                    <span id="videoId" style="display:none"></span>
                                     <span class="info-title">作者：</span>
-                                    <span id="videoUploader">"Learn English with Bob the Canadian"</span>
+                                    <span id="videoUploader">"n"</span>
                                     <br>
                                     <span class="info-title">时长：</span>
-                                    <span id="videoDuration">480000000000</span>
+                                    <span id="videoDuration">0</span>
                                     <br>
                                 </div>
                             </div>
@@ -80,7 +81,7 @@
                         <div class="layui-col-md1"></div>
                         <div class="layui-col-md2">
                             <img id="videoThumbnail" height="110" style="padding-left: 20px"
-                                 src="https://img.youtube.com/vi/fOHpIDVVYxo/default.jpg">
+                                 src="">
                         </div>
                         <div class="layui-col-md12">
                             <div class="layui-tab" style="background-color: #FBFBFB">
@@ -93,10 +94,9 @@
                                         <div id="captionList">
                                             <div id="captionHeader" class="layui-row list-head">
                                                 <b>
-                                                    <div class="layui-col-md2">语言</div>
+                                                    <div class="layui-col-md3">语言</div>
                                                     <div class="layui-col-md2">类型</div>
-                                                    <div class="layui-col-md2">更新日期</div>
-                                                    <div class="layui-col-md2">次要字幕</div>
+                                                    <div class="layui-col-md3">次要字幕</div>
                                                     <div class="layui-col-md2">机器翻译</div>
                                                     <div class="layui-col-md2">下载</div>
                                                 </b>

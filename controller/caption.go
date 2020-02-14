@@ -8,23 +8,25 @@ import (
 )
 
 func CaptionDownload(c *gin.Context) {
-	captionId := c.Param("id")
+	videoId := c.Param("id")
+	captionId := c.Query("vssid")
 	fname := c.DefaultQuery("fname", "subtitle")
 	tlang := c.Query("tlang")
 	secondaryId := c.Query("secondary")
 	secondaryTlang := c.Query("secondary_tlang")
-	var path string
+	var fpath string
 	var err error
 	if secondaryId == "" {
-		path, err = service.DownloadCaption(captionId, tlang)
+		fpath, err = service.DownloadCaption(videoId, captionId, tlang)
 	} else {
-		path, err = service.DownloadAndMergeCaption(captionId, tlang, secondaryId, secondaryTlang)
+		fpath, err = service.DownloadAndMergeCaption(videoId, captionId, tlang, secondaryId, secondaryTlang)
 	}
 	if err != nil {
 		log.Println(err)
 		c.Status(500)
 		return
 	}
-	//	defer os.Remove(path)
-	c.FileAttachment(path, fmt.Sprintf("%s.srt", fname))
+	//	defer os.Remove(fpath)
+	fileName := fmt.Sprintf("%s.srt", fname)
+	c.FileAttachment(fpath, fileName)
 }

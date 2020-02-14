@@ -1,14 +1,15 @@
 package model
 
 import (
-	"google.golang.org/api/youtube/v3"
+	"github.com/treant5612/y2bcaptions"
 	"time"
 )
 
 type Video struct {
-	Info     *VideoInfo          `json:"info"`
-	Files    []*FileInfo        `json:"files"`
-	Captions []*youtube.Caption `json:"captions"`
+	Info  *VideoInfo  `json:"info"`
+	Files []*FileInfo `json:"files"`
+	Captions *y2bcaptions.Captions `json:"captions"`
+	//Captions []*youtube.Caption `json:"captions"`
 }
 
 type VideoInfo struct {
@@ -19,6 +20,7 @@ type VideoInfo struct {
 	Uploader      string        `json:"uploader"`      //上传者
 	Duration      time.Duration `json:"duration"`      //时长
 	ThumbnailUrl  string
+	//Captions      *y2bcaptions.Captions
 }
 
 type FileInfo struct {
@@ -32,5 +34,3 @@ type FileInfo struct {
 	Url           string `json:"url"`  //视频下载地址
 	Size          int64  `json:"size"` //视频大小
 }
-
-
