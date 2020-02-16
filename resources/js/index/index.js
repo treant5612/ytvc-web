@@ -10,6 +10,10 @@ $(function () {
             },
             complete: function () {
             },
+            async: true,
+            headers: {
+                "cache-control": "no-cache"
+            },
             success: fetchSucc,
             error: fetchErr,
 
@@ -29,7 +33,6 @@ function fetchSucc(result, status, xhr) {
 
 function fetchErr(xhr, status, error) {
     layer.close(window.loadingFrame)
-
     layer.msg("视频信息获取失败", {icon: 2})
 }
 
