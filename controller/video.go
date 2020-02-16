@@ -50,9 +50,7 @@ func VideoDownload(c *gin.Context) {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 	id := c.Param("id")
 	noStr := c.Query("no")
-	log.Println(id, noStr)
 	no, err := strconv.Atoi(noStr)
-
 	if err != nil {
 		c.HTML(400, Page400, nil)
 		return

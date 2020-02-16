@@ -37,7 +37,9 @@
                 <div>
                     <input id="target_url" type="text" name="target_url" autocomplete="off"
                            placeholder="请将youtube链接粘贴至此处"
-                           class="layui-input url-input">
+                           class="layui-input url-input"
+                           ondblclick="this.value=''"
+                    >
                     <button id="fetch_btn" type="button" class="layui-btn layui-btn-normal layui-btn-radius"
                             style="background-color:#d84a38 ">获取
                     </button>
@@ -130,9 +132,9 @@
         </div>
         <div class="layui-footer" style="left:0;height: 28px">
             <div style="text-align:center">
-                <a href="./page/updatelog.html">更新日志</a>|
-                <a href="#">留言</a>|
-                <a href="https://github.com/treant5612/ytvc-web">本站源码</a>
+                <a href="./intro">说明</a>&nbsp;|
+                <a href="./guestbook">留言</a>&nbsp;|
+                <a href="https://github.com/treant5612/ytvc-web">源码</a>
             </div>
 
         </div>

@@ -1,11 +1,18 @@
 package model
 
-import "github.com/jinzhu/gorm"
+import (
+	"time"
+)
 
-type Log struct {
-	gorm.Model
-	RemoteAddr string
-	RequestUrl string
+type RequestLog struct {
+	ID            uint `gorm:"primary_key"`
+	RemoteAddr    string
+	RequestUrl    string
 	RequestMethod string
 
+	RequestTime     time.Time
+	RequestDuration time.Duration
+
+	ResponseStatus int
+	ResponseSize   int
 }

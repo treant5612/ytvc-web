@@ -1,0 +1,93 @@
+.body {
+    background-color: #f8f8f8;
+}
+
+.icon {
+    padding: 10px;
+    font-size: xx-large;
+    color: #1E9FFF;
+}
+
+.main {
+    margin-top: 44px;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-left: 8%;
+    margin-right: auto;
+}
+
+
+select {
+    height: 24px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 2px;
+    width: 62%;
+}
+
+.layui-input-block {
+    margin-left: 0;
+}
+
+.name-input {
+    margin-left: 20px;
+    width: 166px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.name {
+    margin-left: 20px;
+}
+
+.text {
+    padding-left: 10px;
+    paddiing-right: 10px;
+    line-height: 22px;
+    color: #333;
+    border-radius: 5px;
+}
+
+.tit {
+    margin-bottom: 18px;
+}
+
+.date {
+    float: right;
+    margin-right: 10px;
+}
+
+.text {
+    padding-left: 0;
+    line-height: 22px;
+    color: #333;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: #dddddd;
+
+}
+
+.comment {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-block {
+    margin: 5px 5px 20px 5px;
+    padding-bottom: 24px;
+}
+
+.comment-info {
+    font-size: small;
+}
