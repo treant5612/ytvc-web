@@ -13,7 +13,7 @@ import (
 
 func main() {
 	prepare()
-
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.Use(middleware.Logger())
 	router.LoadHTMLGlob("templates/*")

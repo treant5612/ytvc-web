@@ -21,7 +21,6 @@ func GuestBookPage(c *gin.Context) {
 func GuestBookComment(c *gin.Context) {
 	nickname := c.PostForm("nickname")
 	content := c.PostForm("comment")
-	log.Println("n", nickname, "c", content)
 	if nickname != "" && content != "" {
 		err := service.InsertComment(nickname, content, c.Request.RemoteAddr)
 		if err == nil {
