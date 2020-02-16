@@ -3,11 +3,9 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/treant5612/ytvc-web/service"
-	"github.com/treant5612/ytvc-web/utils"
 	"io"
 	"log"
 	"net/http"
-	"net/url"
 	"strconv"
 )
 
@@ -29,12 +27,7 @@ func Video(c *gin.Context) {
 		}
 	}()
 	urlParam := c.Query("url")
-	u, err := url.Parse(urlParam)
-	if err != nil {
-		return
-	}
-	videoId := utils.ExtractVideoID(u)
-	video, err := service.Video(videoId)
+	video, err := service.Video(urlParam)
 	if err != nil {
 		log.Println(err)
 	}

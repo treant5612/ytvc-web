@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"github.com/treant5612/ytvc-web/db/redisdb"
 	"log"
 	"net/http"
 )
@@ -12,7 +13,8 @@ var (
 )
 
 func DownloadInfo(videoId string, no int) (fileName, url string, err error) {
-	video, err := Video(videoId) //redisdb.GetVideoDetail(videoId)
+	//video, err := Video(videoId)
+	video,err :=redisdb.GetVideoDetail(videoId)
 	if err != nil {
 		return
 	}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"golang.org/x/text/language"
 	"golang.org/x/text/language/display"
+	"net/http"
 	"net/url"
 	"reflect"
 	"regexp"
@@ -40,6 +41,18 @@ func Domain(url string) (domain string) {
 	return matches[1]
 }
 
+func ExtractVideoInfo(u *url.URL) (id string, kind string) {
+
+	switch true {
+	case strings.Contains(u.Host, "pornhub"):
+		id = u.Query().Get("viewkey")
+		return id, "pornhub"
+	case strings.Contains(u.Host, "youtu"):
+		return ExtractVideoID(u), "youtube"
+	}
+	return "", ""
+}
+
 // GetVideoInfoFromShortURL fetches video info from a short youtube url
 func ExtractVideoID(u *url.URL) string {
 	switch u.Host {
@@ -64,4 +77,22 @@ func LanguageDisplay(lang string) string {
 		return lang
 	}
 	return display.Chinese.Tags().Name(tag)
+}
+
+func GetFileSize(url string) (size int64, err error) {
+	client := http.DefaultClient
+
+	req, err := http.NewRequest(http.MethodHead, url, nil)
+	if err != nil {
+		return 0, nil
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		return 0, err
+	}
+	if resp.StatusCode/100 != 2 {
+		return 0, fmt.Errorf("request failed:%v", resp.StatusCode)
+	}
+	return resp.ContentLength, nil
+
 }
