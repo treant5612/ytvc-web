@@ -3,8 +3,8 @@ $(function () {
     $("#fetch_btn").on("click", function () {
         window.loadingFrame = layer.load(2, {shade: 0.3})
         $.ajax({
-            url: "./video",
-            type: "GET",
+            url: "/video",
+            type: "POST",
             data: {
                 "url": $("#target_url").val()
             },

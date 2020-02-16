@@ -26,7 +26,7 @@ func Video(c *gin.Context) {
 			})
 		}
 	}()
-	urlParam := c.Query("url")
+	urlParam := c.DefaultQuery("url", c.PostForm("url"))
 	video, err := service.Video(urlParam)
 	if err != nil {
 		log.Println(err)

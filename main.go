@@ -25,13 +25,14 @@ func main() {
 		y2b.GET("/index.html", controller.Index)
 
 		y2b.GET("/video", controller.Video)
+		y2b.POST("/video", controller.Video)
 		y2b.GET("/video/:id", controller.VideoDownload)
 		y2b.GET("/caption/:id", controller.CaptionDownload)
 
 		y2b.GET("/guestbook", controller.GuestBookPage)
 		y2b.POST("/guestbook", controller.GuestBookComment)
 	}
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
 
 func prepare() {
