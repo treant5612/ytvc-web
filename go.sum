@@ -112,6 +112,8 @@ github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJy
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/treant5612/pornhub-dl v0.0.0-20200216174939-1d1d68bf8409 h1:1rG8d5VC9Z7uwf61uE7tPlxab812kmtrkzn/OIQVmgk=
 github.com/treant5612/pornhub-dl v0.0.0-20200216174939-1d1d68bf8409/go.mod h1:RSUz1rfVKtzkyBU3nnay95MEZ25Rdkk1vTgvmGz2y6Y=
+github.com/treant5612/pornhub-dl v0.0.0-20200217061558-67eeb53f7f7c h1:P8GObE1g/vumT3u6aFVhtfU+UGp2xtfB3bbEeHBJOY4=
+github.com/treant5612/pornhub-dl v0.0.0-20200217061558-67eeb53f7f7c/go.mod h1:RSUz1rfVKtzkyBU3nnay95MEZ25Rdkk1vTgvmGz2y6Y=
 github.com/treant5612/y2bcaptions v0.0.0-20200214082019-09d70222f437 h1:2BkVA0eGK2xHUiU0+0wdhY/Fhq1PEl4zUJOwjiHEmXE=
 github.com/treant5612/y2bcaptions v0.0.0-20200214082019-09d70222f437/go.mod h1:bKpIUgJ2DberGNYT8F2Rn7UtImRE//vgkio3Q68MHwA=
 github.com/treant5612/ytdl v0.6.3-0.20200214091400-8424bbb14de5 h1:sFHdUWabISz/1cladnrOId5+HS48mWMQPSkJOQwQqWw=
