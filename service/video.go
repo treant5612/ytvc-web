@@ -53,6 +53,7 @@ get video
 func youtubeVideoInfo(id string) (video *model.Video, err error) {
 	video = new(model.Video)
 	videoInfo := new(model.VideoInfo)
+	videoInfo.Kind = "youtube"
 	var videoFiles []*model.FileInfo
 
 	v, err := ytdl.GetVideoInfoFromID(id)
@@ -108,6 +109,7 @@ func pornhubVideoInfo(id string) (video *model.Video, err error) {
 	}
 	video = new(model.Video)
 	videoInfo := new(model.VideoInfo)
+	videoInfo.Kind = "pornhub"
 	utils.Copy(videoInfo, v)
 	video.Info = videoInfo
 	wg := &sync.WaitGroup{}

@@ -4,15 +4,11 @@ $(function () {
         window.loadingFrame = layer.load(2, {shade: 0.3})
         $.ajax({
             url: "/video",
-            type: "POST",
+            type: "GET",
             data: {
                 "url": $("#target_url").val()
             },
             complete: function () {
-            },
-            async: true,
-            headers: {
-                "cache-control": "no-cache"
             },
             success: fetchSucc,
             error: fetchErr,
@@ -43,6 +39,7 @@ function showDetails() {
 function fillVideoInfo(info) {
     $("#videoTitle").text(cutString(info.title))
     $("#videoId").text(info.id)
+    $("#videoKind").text(info.kind)
     // $("#videoDescription").html(info.description);
     $("#videoUploader").text(info.uploader)
     $("#videoThumbnail").attr("src", info.ThumbnailUrl)
@@ -67,13 +64,18 @@ function createFileRow(f, vid) {
     let encoding = v + "&nbsp;/&nbsp;" + a
     let size = prettySize(f.size)
     let title = $("#videoTitle").text()
+    let kind = $("#videoKind").text()
+    let link = "#"
+    if (kind == "youtube") {
+        link = f.url
+    }
     let temp = `<div class="layui-row file-row">
         <div class="layui-col-md2">${f.extension}</div>
         <div class="layui-col-md2">${resolution}</div>
         <div class="layui-col-md2">${encoding}</div>
         <div class="layui-col-md2">${size}</div>
-        <div class="layui-col-md2"><a href="${f.url}" target="_blank" style="color:deepskyblue">链接</a></div>
-        <div class="layui-col-md2"><a href="./video/${vid}?no=${f.number}" download="${title}.${f.extension}" >下载</a></div>
+        <div class="layui-col-md2"><a href="${link}" target="_blank" style="color:deepskyblue">链接</a></div>
+        <div class="layui-col-md2"><a href="/video/${vid}?no=${f.number}&kind=${kind}" download="${title}.${f.extension}" >下载</a></div>
      </div>
      <hr class="file-row">
 `

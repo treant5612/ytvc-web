@@ -32,7 +32,6 @@ func Video(c *gin.Context) {
 		log.Println(err)
 	}
 
-	//将字幕语言标识符转换为中文显示
 	c.JSON(http.StatusOK, gin.H{
 		"code": 200,
 		"data": video,
@@ -43,12 +42,13 @@ func VideoDownload(c *gin.Context) {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 	id := c.Param("id")
 	noStr := c.Query("no")
+	kind := c.Query("kind")
 	no, err := strconv.Atoi(noStr)
 	if err != nil {
 		c.HTML(400, Page400, nil)
 		return
 	}
-	fileName, downUrl, err := service.DownloadInfo(id, no)
+	fileName, downUrl, err := service.DownloadInfo(id, no, kind)
 	if err != nil {
 		c.HTML(404, Page400, nil)
 		return

@@ -3,7 +3,6 @@ package service
 import (
 	"errors"
 	"fmt"
-	"github.com/treant5612/ytvc-web/db/redisdb"
 	"log"
 	"net/http"
 )
@@ -12,9 +11,9 @@ var (
 	ErrDownloadFailed = errors.New("download failed")
 )
 
-func DownloadInfo(videoId string, no int) (fileName, url string, err error) {
-	//video, err := Video(videoId)
-	video,err :=redisdb.GetVideoDetail(videoId)
+func DownloadInfo(videoId string, no int, kind string) (fileName, url string, err error) {
+	video, err := VideoInfo(videoId, kind)
+	//video,err :=redisdb.GetVideoDetail(videoId)
 	if err != nil {
 		return
 	}

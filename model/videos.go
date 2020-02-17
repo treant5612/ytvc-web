@@ -6,8 +6,8 @@ import (
 )
 
 type Video struct {
-	Info  *VideoInfo  `json:"info"`
-	Files []*FileInfo `json:"files"`
+	Info     *VideoInfo            `json:"info"`
+	Files    []*FileInfo           `json:"files"`
 	Captions *y2bcaptions.Captions `json:"captions"`
 	//Captions []*youtube.Caption `json:"captions"`
 }
@@ -21,6 +21,7 @@ type VideoInfo struct {
 	Duration      time.Duration `json:"duration"`      //时长
 	ThumbnailUrl  string
 	//Captions      *y2bcaptions.Captions
+	Kind string `json:"kind"` //类型
 }
 
 type FileInfo struct {
