@@ -16,17 +16,11 @@ var (
 
 func Video(c *gin.Context) {
 	var err error
-	var message string
-	defer func() {
-		if err != nil {
-		}
-	}()
 	urlParam := c.DefaultQuery("url", c.PostForm("url"))
 	if urlParam == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"code":    400,
-			"err":     err.Error(),
-			"message": message,
+			"code": 400,
+			"err":  "invalid param",
 		})
 		return
 	}
@@ -34,9 +28,8 @@ func Video(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"code":    400,
-			"err":     err.Error(),
-			"message": message,
+			"code": 400,
+			"err":  "invalid param",
 		})
 		return
 	}
