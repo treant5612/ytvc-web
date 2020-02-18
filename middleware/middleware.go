@@ -12,7 +12,7 @@ func Logger() gin.HandlerFunc {
 		reqTime := time.Now()
 		c.Next()
 		reqLog := &model.RequestLog{
-			RemoteAddr:      c.Request.RemoteAddr,
+			RemoteAddr:      c.ClientIP(),
 			RequestUrl:      c.Request.RequestURI,
 			RequestMethod:   c.Request.Method,
 			RequestTime:     reqTime,
