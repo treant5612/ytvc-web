@@ -2,7 +2,8 @@
 
 
 --- 
-用于下载youtube字幕和视频的一个web应用。
+用于下载youtube字幕和视频的一个web应用。[访问地址](https://y2b.treant.me)
+
 开发目的是为了解决我在ipad上下载youtube字幕和视频的需求。
 （pc可以使用chrome插件/油猴脚本/youtube-dl/annie等方式下载youtube视频，但是ipad上不能这样）
 可以在pc上运行服务，然后ipad通过局域网访问。
