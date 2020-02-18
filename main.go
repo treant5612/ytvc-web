@@ -21,6 +21,7 @@ func main() {
 	{
 		y2b.Static("/resources", "./resources")
 		y2b.StaticFile("/favicon.ico", "./resources/favicon.ico")
+		y2b.StaticFile("/intro", "./templates/intro.html")
 		y2b.GET("/", controller.Index)
 		y2b.GET("/index.html", controller.Index)
 
