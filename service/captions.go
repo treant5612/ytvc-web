@@ -21,8 +21,9 @@ func Captions(videoId string) (captions []*youtube.Caption, err error) {
 /*
 	Download caption and return it's path in local filesystem.
 */
-func DownloadCaption(videoId string, captionId string, tlang string) (fpath string, err error) {
-	v, err := Video(videoId)
+func
+DownloadCaption(videoId string, captionId string, tlang string) (fpath string, err error) {
+	v, err := VideoInfo(videoId,"youtube")
 	if err != nil {
 		return "", err
 	}
