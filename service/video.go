@@ -91,8 +91,10 @@ func youtubeVideoInfo(id string) (video *model.Video, err error) {
 			f.Url = url.String()
 			size, err := utils.GetFileSize(f.Url)
 			if err != nil {
-				f.Size = size
+				log.Printf("get file size failed:%v\n",err)
+				return
 			}
+			f.Size = size
 		}()
 	}
 	wg.Wait()
