@@ -13,7 +13,7 @@ require (
 	github.com/robertkrimen/otto v0.0.0-20191219234010-c382bd3c16ff // indirect
 	github.com/rylio/ytdl v0.6.2
 	github.com/treant5612/pornhub-dl v0.0.0-20200217061558-67eeb53f7f7c
-	github.com/treant5612/y2bcaptions v0.0.0-20200214082019-09d70222f437
+	github.com/treant5612/y2bcaptions v0.0.0-20200219062827-70ce1df88b99
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/text v0.3.2
 	google.golang.org/api v0.17.0
