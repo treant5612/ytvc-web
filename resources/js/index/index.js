@@ -44,6 +44,7 @@ function fillVideoInfo(info) {
     $("#videoUploader").text(info.uploader)
     $("#videoThumbnail").attr("src", info.ThumbnailUrl)
     $("#videoDuration").text(simpleDuration(info.duration / 10e5))
+    $("#thumbnailUrl").attr("href", `http://img.youtube.com/vi/${info.id}/maxresdefault.jpg`)
 }
 
 function listFiles(files, vid) {
