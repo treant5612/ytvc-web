@@ -2,7 +2,6 @@ package redisdb
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/go-redis/redis"
 	"github.com/treant5612/ytvc-web/model"
 	"log"
@@ -21,8 +20,8 @@ func SetVideoDetail(video *model.Video) {
 		log.Printf("redis set video detail failed:%v", err)
 		return
 	}
-	s := rdb.Set("video."+video.Info.ID, bytes, expire)
-	fmt.Println(s)
+	rdb.Set("video."+video.Info.ID, bytes, expire)
+
 }
 
 func GetVideoDetail(id string) (video *model.Video, err error) {
