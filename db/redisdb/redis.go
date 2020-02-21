@@ -30,7 +30,6 @@ func GetVideoDetail(id string) (video *model.Video, err error) {
 	if err != nil {
 		return nil, err
 	}
-	rdb.Expire("video."+id, expire)
 	err = json.Unmarshal(bytes, video)
 	return
 }
