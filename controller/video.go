@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"bufio"
 	"github.com/gin-gonic/gin"
 	"github.com/treant5612/ytvc-web/service"
 	"io"
@@ -69,7 +70,7 @@ func VideoDownload(c *gin.Context) {
 	copyHeader(c.Writer.Header(), resp.Header,
 		"Range", "Accept-Ranges", "Content-Range", "Content-Type", "Content-Length")
 	c.Writer.Header().Set("Content-Disposition", "attachment;filename="+fileName)
-	_, err = io.Copy(c.Writer, resp.Body)
+	_, err = io.Copy(c.Writer, bufio.NewReaderSize(resp.Body, 512*1024))
 	if err != nil {
 		log.Println(err)
 	}
