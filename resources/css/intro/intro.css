@@ -1,0 +1,562 @@
+html {
+    overflow-x: initial !important
+}
+
+:root {
+    --bg-color: #fff;
+    --text-color: #333;
+    --select-text-bg-color: #b5d6fc;
+    --select-text-font-color: auto;
+    --monospace: "Lucida Console", Consolas, "Courier", monospace
+}
+
+html {
+    font-size: 14px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 1rem;
+    line-height: 1.42857;
+    overflow-x: hidden;
+    background: inherit;
+    tab-size: 4
+}
+
+iframe {
+    margin: auto
+}
+
+a.url {
+    word-break: break-all
+}
+
+a:active, a:hover {
+    outline: 0
+}
+
+#write {
+    margin: 0 auto;
+    height: auto;
+    width: inherit;
+    word-break: normal;
+    overflow-wrap: break-word;
+    position: relative;
+    white-space: normal;
+    overflow-x: visible;
+    padding-top: 40px
+}
+
+#write.first-line-indent p {
+    text-indent: 2em
+}
+
+#write.first-line-indent li p, #write.first-line-indent p * {
+    text-indent: 0
+}
+
+#write.first-line-indent li {
+    margin-left: 2em
+}
+
+.for-image #write {
+    padding-left: 8px;
+    padding-right: 8px
+}
+
+body.typora-export {
+    padding-left: 30px;
+    padding-right: 30px
+}
+
+@media screen and (max-width: 500px) {
+    body.typora-export {
+        padding-left: 0;
+        padding-right: 0
+    }
+
+    #write {
+        padding-left: 20px;
+        padding-right: 20px
+    }
+
+}
+
+#write li > figure:last-child {
+    margin-bottom: .5rem
+}
+
+#write ol, #write ul {
+    position: relative
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle
+}
+
+button, input, select, textarea {
+    color: inherit;
+    font: inherit
+}
+
+input[type=checkbox], input[type=radio] {
+    line-height: normal;
+    padding: 0
+}
+
+*, :after, :before {
+    box-sizing: border-box
+}
+
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre {
+    width: inherit
+}
+
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p {
+    position: relative
+}
+
+p {
+    line-height: inherit
+}
+
+h1, h2, h3, h4, h5, h6 {
+    break-after: avoid-page;
+    break-inside: avoid;
+    orphans: 2
+}
+
+p {
+    orphans: 4
+}
+
+h1 {
+    font-size: 2rem
+}
+
+h2 {
+    font-size: 1.8rem
+}
+
+h3 {
+    font-size: 1.6rem
+}
+
+h4 {
+    font-size: 1.4rem
+}
+
+h5 {
+    font-size: 1.2rem
+}
+
+h6 {
+    font-size: 1rem
+}
+
+a {
+    cursor: pointer
+}
+
+sup.md-footnote a, sup.md-footnote a:hover {
+    color: inherit;
+    text-transform: inherit;
+    text-decoration: inherit
+}
+
+#write input[type=checkbox] {
+    cursor: pointer;
+    width: inherit;
+    height: inherit
+}
+
+figure {
+    overflow-x: auto;
+    margin: 1.2em 0;
+    max-width: calc(100% + 1pc);
+    padding: 0
+}
+
+figure > table {
+    margin: 0 !important
+}
+
+tr {
+    break-inside: avoid;
+    break-after: auto
+}
+
+thead {
+    display: table-header-group
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    overflow: auto;
+    break-inside: auto;
+    text-align: left
+}
+
+table.md-table td {
+    min-width: 2pc
+}
+
+.CodeMirror pre {
+    padding: 0 4px
+}
+
+
+#write pre {
+    white-space: pre-wrap
+}
+
+#write.fences-no-line-wrapping pre {
+    white-space: pre
+}
+
+li div {
+    padding-top: 0
+}
+
+blockquote {
+    margin: 1rem 0
+}
+
+li {
+    margin: 0;
+    position: relative
+}
+
+blockquote > :last-child {
+    margin-bottom: 0
+}
+
+blockquote > :first-child, li > :first-child {
+    margin-top: 0
+}
+
+@media print {
+    body, html {
+        border: 1px solid transparent;
+        height: 99%;
+        break-after: avoid;
+        break-before: avoid
+    }
+
+    #write {
+        margin-top: 0;
+        padding-top: 0;
+        border-color: transparent !important
+    }
+
+    .typora-export * {
+        -webkit-print-color-adjust: exact
+    }
+
+    html.blink-to-pdf {
+        font-size: 13px
+    }
+
+    .typora-export #write {
+        padding-left: 2pc;
+        padding-right: 2pc;
+        padding-bottom: 0;
+        break-after: avoid
+    }
+
+    .typora-export #write:after {
+        height: 0
+    }
+}
+
+a img, img a {
+    cursor: pointer
+}
+
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child {
+    display: block;
+    margin: auto
+}
+
+[contenteditable=true]:active, [contenteditable=true]:focus {
+    outline: 0;
+    box-shadow: none
+}
+
+.md-task-list-item > input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -1.2em;
+    margin-top: calc(1em - 10px);
+    border: none
+}
+
+.md-toc-item a {
+    text-decoration: none
+}
+
+.footnote-line a:not(.reversefootnote) {
+    color: inherit
+}
+
+code, pre, samp, tt {
+    font-family: var(--monospace)
+}
+
+kbd {
+    margin: 0 .1em;
+    padding: .1em .6em;
+    font-size: .8em;
+    color: #242729;
+    background: #fff;
+    border: 1px solid #adb3b9;
+    border-radius: 3px;
+    box-shadow: rgba(12, 13, 14, .2) 0 1px 0, #fff 0 0 0 2px inset;
+    white-space: nowrap;
+    vertical-align: middle
+}
+
+code {
+    text-align: left;
+    vertical-align: initial
+}
+
+.MathJax_SVG * {
+    transition: none 0s ease 0s
+}
+
+.MathJax_SVG_Display svg {
+    vertical-align: middle !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important
+}
+
+.md-diagram-panel > svg {
+    max-width: 100%
+}
+
+[lang=flow] svg, [lang=mermaid] svg {
+    max-width: 100%;
+    height: auto
+}
+
+[lang=mermaid] .node text {
+    font-size: 1rem
+}
+
+table tr th {
+    border-bottom: 0
+}
+
+video {
+    display: block;
+    margin: 0 auto
+}
+
+iframe, video {
+    max-width: 100%
+}
+
+iframe {
+    width: 100%;
+    border: none
+}
+
+.highlight td, .highlight tr {
+    border: 0
+}
+
+mark {
+    background: #ff0;
+    color: #000
+}
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext); html {
+                                                                                                                              font-size: 1pc
+                                                                                                                          }
+
+body {
+    font-family: Open Sans, Clear Sans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #333;
+    line-height: 1.6
+}
+
+#write {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px;
+    padding-bottom: 75pt
+}
+
+#write > ol:first-child, #write > ul:first-child {
+    margin-top: 30px
+}
+
+a {
+    color: #4183c4
+}
+
+h1, h2, h3, h4, h5, h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: text
+}
+
+h1 code, h1 tt, h2 code, h2 tt, h3 code, h3 tt, h4 code, h4 tt, h5 code, h5 tt, h6 code, h6 tt {
+    font-size: inherit
+}
+
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2
+}
+
+h1, h2 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eee
+}
+
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225
+}
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43
+}
+
+h4 {
+    font-size: 1.25em
+}
+
+h5, h6 {
+    font-size: 1em
+}
+
+h6 {
+    color: #777
+}
+
+blockquote, dl, ol, p, table, ul {
+    margin: .8em 0
+}
+
+li > ol, li > ul {
+    margin: 0
+}
+
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 1pc 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box
+}
+
+ol, ul {
+    padding-left: 30px
+}
+
+ol:first-child, ul:first-child {
+    margin-top: 0
+}
+
+ol:last-child, ul:last-child {
+    margin-bottom: 0
+}
+
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777
+}
+
+blockquote blockquote {
+    padding-right: 0
+}
+
+table {
+    padding: 0;
+    word-break: initial
+}
+
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0
+}
+
+table tr:nth-child(2n), thead {
+    background-color: #f8f8f8
+}
+
+table tr th {
+    font-weight: 700;
+    border-bottom: 0
+}
+
+table tr td, table tr th {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px
+}
+
+table tr td:first-child, table tr th:first-child {
+    margin-top: 0
+}
+
+table tr td:last-child, table tr th:last-child {
+    margin-bottom: 0
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px
+}
+
+.md-task-list-item > input {
+    margin-left: -1.3em
+}
+
+@media print {
+    html {
+        font-size: 13px
+    }
+
+    pre, table {
+        page-break-inside: avoid
+    }
+
+    pre {
+        word-wrap: break-word
+    }
+}
+
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, .12)
+}
