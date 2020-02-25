@@ -15,4 +15,6 @@ type RequestLog struct {
 
 	ResponseStatus int
 	ResponseSize   int
+
+	Referer string
 }

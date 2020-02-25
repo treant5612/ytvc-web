@@ -19,6 +19,7 @@ func Logger() gin.HandlerFunc {
 			RequestDuration: time.Since(reqTime),
 			ResponseSize:    c.Writer.Size(),
 			ResponseStatus:  c.Writer.Status(),
+			Referer:         c.GetHeader("REFERER"),
 		}
 		sqldb.SaveRequestLog(reqLog)
 	}
