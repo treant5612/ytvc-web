@@ -25,8 +25,7 @@ func main() {
 		y2b.GET("/", controller.Index)
 		y2b.GET("/index.html", controller.Index)
 
-		y2b.GET("/video", controller.Video)
-		y2b.POST("/video", controller.Video)
+		y2b.GET("/video",middleware.AccessControl(), controller.Video)
 		y2b.GET("/video/:id", controller.VideoDownload)
 		y2b.GET("/caption/:id", controller.CaptionDownload)
 

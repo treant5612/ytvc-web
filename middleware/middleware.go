@@ -25,14 +25,29 @@ func Logger() gin.HandlerFunc {
 	}
 }
 
-func AccessControl() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		//todo
-		if false {
-			c.HTML(400, "templates/400.html", nil)
-			return
-		}
+var limit_per_min = 10
 
-		c.Next()
+func AccessControl() gin.HandlerFunc {
+	ch := make(chan struct{}, limit_per_min)
+	go func() {
+		ticker := time.Tick(time.Minute / time.Duration(limit_per_min))
+		for {
+			select {
+			case ch <- struct{}{}:
+			default:
+			}
+			<-ticker
+		}
+	}()
+
+	return func(c *gin.Context) {
+		select {
+		case <-ch:
+			c.Next()
+		default:
+			c.JSON(429, gin.H{
+				"error": "Too Many Requests",
+			})
+		}
 	}
 }
