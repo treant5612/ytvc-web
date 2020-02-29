@@ -29,7 +29,7 @@ function fetchSucc(result, status, xhr) {
 
 function fetchErr(xhr, status, error) {
     layer.close(window.loadingFrame)
-    layer.msg("视频信息获取失败", {icon: 2})
+    layer.msg("视频信息获取失败:" + error, {icon: 2})
 }
 
 function showDetails() {

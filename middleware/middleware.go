@@ -45,9 +45,11 @@ func AccessControl() gin.HandlerFunc {
 		case <-ch:
 			c.Next()
 		default:
+			c.Abort()
 			c.JSON(429, gin.H{
 				"error": "Too Many Requests",
 			})
+
 		}
 	}
 }
