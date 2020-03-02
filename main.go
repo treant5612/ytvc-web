@@ -8,6 +8,7 @@ import (
 	"github.com/treant5612/ytvc-web/db/sqldb"
 	"github.com/treant5612/ytvc-web/middleware"
 	"github.com/treant5612/ytvc-web/service"
+	"github.com/fvbock/endless"
 	"log"
 )
 
@@ -32,7 +33,7 @@ func main() {
 		y2b.GET("/guestbook", controller.GuestBookPage)
 		y2b.POST("/guestbook", controller.GuestBookComment)
 	}
-	router.Run(":8080")
+	endless.ListenAndServe(":8080",router)
 }
 
 func prepare() {
